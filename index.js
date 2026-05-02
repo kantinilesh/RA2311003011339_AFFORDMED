@@ -10,21 +10,15 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Mandatory Logging Middleware - apply globally
 app.use(loggingMiddleware);
-
-// Sample Route to fetch data from the AffordMed test server
 app.get('/vehicles', authMiddleware, async (req, res) => {
     try {
-        // Example: Fetching vehicles from the test server
-        // This is a placeholder URL based on the pattern in the images
         const response = await axios.get(`${process.env.TEST_SERVER_URL}/evaluation-service/vehicles`, {
             headers: {
                 Authorization: `Bearer ${req.authToken}`
             }
         });
         
-        // Return the data to the user
         res.json(response.data);
     } catch (error) {
         console.error('Error fetching vehicles:', error.response ? error.response.data : error.message);
@@ -35,7 +29,6 @@ app.get('/vehicles', authMiddleware, async (req, res) => {
     }
 });
 
-// Endpoint to solve the task optimization problem
 app.post('/solve', authMiddleware, async (req, res) => {
     try {
         const { maxDuration = 10 } = req.body; // Default or provided max duration
@@ -49,11 +42,10 @@ app.post('/solve', authMiddleware, async (req, res) => {
         });
 
         const tasks = response.data.tasks || [];
-        
-        // 2. Solve the Knapsack problem
+
         const selectedIDs = solveKnapsack(tasks, maxDuration);
         
-        // 3. Format the response as seen in Image 3
+
         const result = {
             vehicles: selectedIDs.map(id => ({ TaskID: id }))
         };
