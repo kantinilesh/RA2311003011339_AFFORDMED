@@ -11,13 +11,10 @@ const loggingMiddleware = (req, res, next) => {
                        `Query: ${JSON.stringify(query)}\n` +
                        `Body: ${JSON.stringify(body)}\n`;
 
-    // Log to console
-    console.log(logMessage);
 
-    // Log to file
+    console.log(logMessage);
     fs.appendFileSync(logFile, logMessage + '-------------------\n');
 
-    // Intercept response to log it
     const originalSend = res.send;
     res.send = function (data) {
         const responseLog = `[${timestamp}] Response for ${method} ${url}: ${data}\n`;
