@@ -1,9 +1,4 @@
-/**
- * Solve the 0/1 Knapsack problem to maximize impact within duration.
- * @param {Array} tasks - Array of { TaskID, Duration, Impact }
- * @param {number} maxDuration - Maximum allowed total duration
- * @returns {Array} - Array of selected TaskIDs
- */
+
 function solveKnapsack(tasks, maxDuration) {
     const n = tasks.length;
     const dp = Array.from({ length: n + 1 }, () => Array(maxDuration + 1).fill(0));
