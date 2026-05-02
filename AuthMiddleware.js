@@ -5,7 +5,7 @@ let cachedToken = null;
 let tokenExpiry = null;
 
 async function getAuthToken() {
-    // Check if token is still valid
+
     if (cachedToken && tokenExpiry && Date.now() < tokenExpiry) {
         return cachedToken;
     }
